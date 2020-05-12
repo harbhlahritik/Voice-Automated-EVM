@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EVM for Blind</title>
+    <title>Voice Automated EVM</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,10 +16,17 @@
     
     <div class="second">
         <p class="number-verification">Please verify your electoral number as: <p class="electoralNumberDisplay"></p></p>
+        <p>Your details are as follows: </p>
+        <ul>
+            <li><p class="name"></p></li>
+            <li><p class="age"></p></li>
+            <li><p class="state"></p></li>
+        </ul>
+        <p>Say YES to confirm</p>
     </div>
 
     <div class="third">
-        <p class="confirm-number"></p>
+        <p class="display_name"></p>
     </div>
 
     <div class="forth">
@@ -34,16 +41,18 @@
 
     <div class="fifth">
         <p>You have selected -</p>
-        <p class="submit-verification"></p>
+        <p class="showSelectedOption"></p>
         <p>Say yes to verify</p>
+    </div>
+
+    <div class="confirm">
+        <p>Thank you for casting your vote. Press the button below for another demonstration.</p>
+        <div class="refresh"><button onClick="window.location.reload();">Refresh Page</button></div>
     </div>
 
     <div class="talk-button">
         <button class="talk">Talk</button>
     </div>
-
-    <div class="refresh"><button onClick="window.location.reload();">Refresh Page</button></div>
-
 
     <script src="script.js"></script>
 </body>
