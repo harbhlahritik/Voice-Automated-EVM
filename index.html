@@ -5,23 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voice Automated EVM</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins|Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
+
+    <div class="top">
+        <div class="logo"><img src="img/nsit_logo.png" alt="NSIT logo"></div>
+        <div class="title"><h1>Welcome to Voice Automated Electoral Voting Machine EVM Demo</h1></div>
+    </div>
+
     <div class="first">
-        <h1>Welcome to Voice Automated Electoral Voting Machine EVM Demo</h1>
         <p>To begin the voting process you need to provide your Electoral voting number</p>
-        <p>Once ready press the below button</p>
+        <p>Once ready press the below Talk button</p>
         <p class="greetings"></p>
     </div>
     
     <div class="second">
-        <p class="number-verification">Please verify your electoral number as: <p class="electoralNumberDisplay"></p></p>
+        <p class="number-verification">Please verify your electoral number as: <p class="electoralNumberDisplay"></p></p><br>
         <p>Your details are as follows: </p>
         <ul>
             <li><p class="name"></p></li>
             <li><p class="age"></p></li>
             <li><p class="state"></p></li>
-        </ul>
+        </ul><br>
         <p>Say YES to confirm</p>
     </div>
 
@@ -41,17 +47,21 @@
 
     <div class="fifth">
         <p>You have selected -</p>
-        <p class="showSelectedOption"></p>
+        <p class="showSelectedOption"></p><br>
         <p>Say yes to verify</p>
     </div>
 
     <div class="confirm">
         <p>Thank you for casting your vote. Press the button below for another demonstration.</p>
-        <div class="refresh"><button onClick="window.location.reload();">Refresh Page</button></div>
     </div>
 
-    <div class="talk-button">
-        <button class="talk">Talk</button>
+    <div class="bothButtons">
+        <div class="refresh-button">
+            <button class="refresh" onClick="window.location.reload();">Restart Process</button>
+        </div>
+        <div class="talk-button">
+            <button class="talk">Talk</button>
+        </div>
     </div>
 
     <script src="script.js"></script>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>वॉयस ऑटोमेटेड ई.वी.एम.</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins|Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="top">
+        <div class="logo"><img src="img/nsit_logo.png" alt="NSIT logo"></div>
+        <div class="title"><h1>वॉयस ऑटोमेटेड इलेक्टोरल वोटिंग मशीन EVM के प्रदर्शन में आपका स्वागत है</h1></div>
+    </div>
+
+    <div class="first">
+        <p>मतदान प्रक्रिया शुरू करने के लिए आपको अपना चुनावी मतदान संख्या प्रदान करना होगा</p>
+        <p>एक बार तैयार होने के बाद नीचे दिए गए बातचीत बटन को दबाएं</p>
+        <p class="greetings"></p>
+    </div>
+    
+    <div class="second">
+        <p class="number-verification">कृपया अपना चुनावी नंबर सत्यापित करें: <p class="electoralNumberDisplay"></p></p><br>
+        <p>आपका विवरण इस प्रकार है: </p>
+        <ul>
+            <li><p class="name"></p></li>
+            <li><p class="age"></p></li>
+            <li><p class="state"></p></li>
+        </ul><br>
+        <p>पुष्टि करने के लिए हाँ कहो</p>
+    </div>
+
+    <div class="third">
+        <p class="display_name"></p>
+    </div>
+
+    <div class="forth">
+        <p class="select-options">उन विकल्पों में से एक का चयन करें जिन्हें आप वोट देना चाहते हैं</p>
+        <ul>
+            <li>विकल्प 1 - पार्टी 1</li>
+            <li>विकल्प 2 - पार्टी 2</li>
+            <li>विकल्प 3 - पार्टी 3</li>
+            <li>विकल्प 4 - नोटा</li>
+        </ul>
+    </div>
+
+    <div class="fifth">
+        <p>आपके द्वारा चुने गए -</p>
+        <p class="showSelectedOption"></p><br>
+        <p>पुष्टि करने के लिए हाँ कहो</p>
+    </div>
+
+    <div class="confirm">
+        <p>वोट डालने के लिए धन्यवाद। एक और प्रदर्शन के लिए नीचे दिया गया बटन दबाएं।</p>
+    </div>
+
+    <div class="bothButtons">
+        <div class="refresh-button">
+            <button class="refresh" onClick="window.location.reload();">प्रक्रिया को पुनरारंभ करें</button>
+        </div>
+        <div class="talk-button">
+            <button class="talk">बातचीत</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,11 +1,6 @@
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
-// recognition.lang = "hi-IN";
-
-var voices = [];
-window.speechSynthesis.onvoiceschanged = () => {
-    voices = window.speechSynthesis.getVoices();
-}
+recognition.lang = "hi-IN";
 
 // setting display properties of all the divs
 const first = document.querySelector('.first');
@@ -29,11 +24,8 @@ function speech(text) {
     const speech = new SpeechSynthesisUtterance();
     console.log(speech);
     speech.lang = "hi-IN";
-    // speech.name = "Google US English";
-    // speech.voice = voices[3];
     speech.text = text;
     speech.volume = 1;
-    // speech.rate = 0.8;
     speech.pitch = 1;
     window.speechSynthesis.speak(speech);
 }
@@ -72,7 +64,7 @@ recognition.onresult = (event) => {
 
         console.log("getConfirmation invoked");
 
-        if(transcript.includes('yes')){
+        if(transcript.includes('हां')){
             
             getConfirmation = false;
             getOption = true;
@@ -113,7 +105,7 @@ recognition.onresult = (event) => {
 
 // greetings voice
 
-const greetingText = "Welcome to Voice Automated Electoral Voting Machine EVM Demo. To begin the voting process you need to provide your Electoral voting number. Once ready press the below button";
+const greetingText = "नमस्ते चुनावी वोटिंग मशीन में आपका स्वागत है। मतदान प्रक्रिया शुरू करने के लिए आपको अपना चुनावी मतदान संख्या प्रदान करना होगा । एक बार तैयार होने के बाद नीचे के हरे बातचीत बटन को दबाएं"
 speech(greetingText);
 
 // Electoral number verification
@@ -135,15 +127,15 @@ function verification(electoralNumber) {
     // get user data from electoral number
     if(electoralNumber == 123123123){
 
-        userDetails.name = "Hritik Harbhla";
+        userDetails.name = "रितिक Harbhla";
         userDetails.age = 21;
-        userDetails.state = "Maharastra";
+        userDetails.state = "महाराष्ट्र";
 
     } else if (electoralNumber == 123412341234) {
 
-        userDetails.name = "Kundan Kumar";
+        userDetails.name = "कुंदन कुमार";
         userDetails.age = 22;
-        userDetails.state = "Delhi";
+        userDetails.state = "दिल्ली";
 
     } else {
         console.log("new User");
@@ -152,14 +144,14 @@ function verification(electoralNumber) {
     const name = document.querySelector(".name");
     const age = document.querySelector(".age");
     const state = document.querySelector(".state");
-    name.textContent = "Name: "+ userDetails.name;
-    age.textContent = "Age: "+ userDetails.age;
-    state.textContent = "State: "+ userDetails.state;
+    name.textContent = "नाम: "+ userDetails.name;
+    age.textContent = "आयु: "+ userDetails.age;
+    state.textContent = "राज्य: "+ userDetails.state;
 
-    var text = "Your electoral number is "+ electoralNumber + ". Your name is " + userDetails.name + " with age " + userDetails.age + " and belonging to State " + userDetails.state;
+    var text = "आपका चुनावी नंबर है "+ electoralNumber + ". आपका नाम है " + userDetails.name + " आयु " + userDetails.age + " और राज्य से संबंधित है " + userDetails.state;
     speech(text);
 
-    text = "Do you wish to proceed furthur ?";
+    text = "क्या आप आगे बढ़ना चाहते हैं?";
     speech(text);
 }
 
@@ -170,7 +162,7 @@ function getOptionfun() {
 
     forth.style.display = "block";
 
-    var text = "Please select one of the following options. Option 1 - Party 1, option 2 - party 2, option 3 - party 3, option 4 - nota. Say your option number to proceed.";
+    var text = "कृपया निम्न में से किसी एक विकल्प को चुनें. विकल्प 1 - पार्टी 1, विकल्प 2 - पार्टी 2, विकल्प 3 - पार्टी 3, विकल्प 4 - नोटा.आगे बढ़ने के लिए अपना विकल्प नंबर कहें।";
     speech(text);
 
 }
@@ -184,10 +176,10 @@ function optionVerification(option) {
     const showSelectedOption = document.querySelector(".showSelectedOption");
     showSelectedOption.textContent = "Option " + option;
 
-    var text = "You have selected option number " + option;
+    var text = "आपने विकल्प नंबर चुना है " + option;
     speech(text);
 
-    text = "Say yes to confirm and cast the vote";
+    text = "वोट की पुष्टि करने और वोट देने के लिए हां कहें";
     speech(text);
 
 }
@@ -199,7 +191,7 @@ function confirm_vote() {
     confirm.style.display = "block";
     document.querySelector(".refresh-button").style.left = "45%";
 
-    var text = "Thank you for casting your vote. Press the button below for another demonstration.";
+    var text = "वोट डालने के लिए धन्यवाद। एक और प्रदर्शन के लिए नीचे दिया गया बटन दबाएं।";
     speech(text);
 
     button.style.display = "none";
