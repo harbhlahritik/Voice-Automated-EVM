@@ -5,7 +5,7 @@ const recognition = new SpeechRecognition();
 var voices = [];
 window.speechSynthesis.onvoiceschanged = () => {
     voices = window.speechSynthesis.getVoices();
-}
+};
 
 // setting display properties of all the divs
 const first = document.querySelector('.first');
@@ -27,8 +27,9 @@ const button = document.querySelector('.talk');
 
 function speech(text) {
     const speech = new SpeechSynthesisUtterance();
+    // const speech = new window.SpeechSynthesis();
     console.log(speech);
-    speech.lang = "hi-IN";
+    // speech.lang = "hi-IN";
     // speech.name = "Google US English";
     // speech.voice = voices[3];
     speech.text = text;
@@ -36,6 +37,10 @@ function speech(text) {
     // speech.rate = 0.8;
     speech.pitch = 1;
     window.speechSynthesis.speak(speech);
+    // while(window.speechSynthesis.speaking){
+    //     window.setTimeout( console.log("speaking..."), 1000);
+    // } 
+    // recognition.start();
 }
 
 button.addEventListener('click', () => {
@@ -113,8 +118,19 @@ recognition.onresult = (event) => {
 
 // greetings voice
 
-const greetingText = "Welcome to Voice Automated Electoral Voting Machine EVM Demo. To begin the voting process you need to provide your Electoral voting number. Once ready press the below button";
+const greetingText = "Welcome to Voice Automated Electoral Voting Machine EVM Demo. To begin the voting process you need to provide your Electoral voting number.";
 speech(greetingText);
+
+// const getSpeech = () => {
+//     if(window.speechSynthesis.speaking){
+//         console.log("speaking....");
+//         setTimeout(2000);
+//     }
+//     console.log("not speaking....");
+//     recognition.start();
+// };
+
+getSpeech();
 
 // Electoral number verification
 
@@ -156,7 +172,15 @@ function verification(electoralNumber) {
     age.textContent = "Age: "+ userDetails.age;
     state.textContent = "State: "+ userDetails.state;
 
-    var text = "Your electoral number is "+ electoralNumber + ". Your name is " + userDetails.name + " with age " + userDetails.age + " and belonging to State " + userDetails.state;
+    var text = "Your electoral number is ";
+    speech(text);
+
+    var electoralNumberArray = electoralNumber.toString(10).split('').map(Number);
+    for(var i = 0;i < electoralNumberArray.length;i++){
+        speech(electoralNumberArray[i]);
+    }
+
+    text = "Your name is " + userDetails.name + " with age " + userDetails.age + " and belonging to State " + userDetails.state;
     speech(text);
 
     text = "Do you wish to proceed furthur ?";

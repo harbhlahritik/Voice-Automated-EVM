@@ -148,7 +148,15 @@ function verification(electoralNumber) {
     age.textContent = "आयु: "+ userDetails.age;
     state.textContent = "राज्य: "+ userDetails.state;
 
-    var text = "आपका चुनावी नंबर है "+ electoralNumber + ". आपका नाम है " + userDetails.name + " आयु " + userDetails.age + " और राज्य से संबंधित है " + userDetails.state;
+    var text = "आपका चुनावी नंबर है "+ electoralNumber;
+    speech(text);
+
+    var electoralNumberArray = electoralNumber.toString(10).split('').map(Number);
+    for(var i = 0;i < electoralNumberArray.length;i++){
+        speech(electoralNumberArray[i]);
+    }
+
+    text = "आपका नाम है " + userDetails.name + " आयु " + userDetails.age + " और राज्य से संबंधित है " + userDetails.state;
     speech(text);
 
     text = "क्या आप आगे बढ़ना चाहते हैं?";
