@@ -32,6 +32,8 @@ function speech(text) {
 
 button.addEventListener('click', () => {
     recognition.start();
+    button.style.display = "none";
+    document.querySelector(".refresh-button").style.left = "50%";
 });
 
 recognition.onstart = () => {
@@ -80,11 +82,11 @@ recognition.onresult = (event) => {
         getOption = false;
         var option = 0;
         
-        if(transcript.includes('1')){
+        if(transcript.includes('1') || transcript.includes('एक')){
             option = 1;
-        } else if (transcript.includes('2')){
+        } else if (transcript.includes('2') || transcript.includes('दो')){
             option = 2;
-        } else if (transcript.includes('3')){
+        } else if (transcript.includes('3') || transcript.includes('तीन')){
             option = 3;
         } else {
             option = 4;
@@ -106,7 +108,7 @@ recognition.onresult = (event) => {
 // greetings voice
 
 const greetingText = "नमस्ते चुनावी वोटिंग मशीन में आपका स्वागत है। मतदान प्रक्रिया शुरू करने के लिए आपको अपना चुनावी मतदान संख्या प्रदान करना होगा । एक बार तैयार होने के बाद नीचे के हरे बातचीत बटन को दबाएं"
-speech(greetingText);
+// speech(greetingText);
 
 // Electoral number verification
 
@@ -148,19 +150,21 @@ function verification(electoralNumber) {
     age.textContent = "आयु: "+ userDetails.age;
     state.textContent = "राज्य: "+ userDetails.state;
 
-    var text = "आपका चुनावी नंबर है "+ electoralNumber;
-    speech(text);
+    // var text = "आपका चुनावी नंबर है ";
+    // speech(text);
 
-    var electoralNumberArray = electoralNumber.toString(10).split('').map(Number);
-    for(var i = 0;i < electoralNumberArray.length;i++){
-        speech(electoralNumberArray[i]);
-    }
+    // var electoralNumberArray = electoralNumber.toString(10).split('').map(Number);
+    // for(var i = 0;i < electoralNumberArray.length;i++){
+    //     speech(electoralNumberArray[i]);
+    // }
 
     text = "आपका नाम है " + userDetails.name + " आयु " + userDetails.age + " और राज्य से संबंधित है " + userDetails.state;
     speech(text);
 
     text = "क्या आप आगे बढ़ना चाहते हैं?";
     speech(text);
+
+    window.setTimeout(() => {recognition.start();}, 9000);
 }
 
 
@@ -173,6 +177,7 @@ function getOptionfun() {
     var text = "कृपया निम्न में से किसी एक विकल्प को चुनें. विकल्प 1 - पार्टी 1, विकल्प 2 - पार्टी 2, विकल्प 3 - पार्टी 3, विकल्प 4 - नोटा.आगे बढ़ने के लिए अपना विकल्प नंबर कहें।";
     speech(text);
 
+    window.setTimeout(() => {recognition.start();}, 11000);
 }
 
 // option verification
@@ -190,6 +195,7 @@ function optionVerification(option) {
     text = "वोट की पुष्टि करने और वोट देने के लिए हां कहें";
     speech(text);
 
+    window.setTimeout(() => {recognition.start();}, 6000);
 }
 
 // Completion confirmation
@@ -197,11 +203,10 @@ function optionVerification(option) {
 function confirm_vote() {
 
     confirm.style.display = "block";
-    document.querySelector(".refresh-button").style.left = "45%";
+    document.querySelector(".refresh-button").style.left = "50%";
 
     var text = "वोट डालने के लिए धन्यवाद। एक और प्रदर्शन के लिए नीचे दिया गया बटन दबाएं।";
     speech(text);
 
     button.style.display = "none";
-
 }
