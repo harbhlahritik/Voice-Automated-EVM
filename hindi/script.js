@@ -164,7 +164,7 @@ function verification(electoralNumber) {
     text = "क्या आप आगे बढ़ना चाहते हैं?";
     speech(text);
 
-    window.setTimeout(() => {recognition.start();}, 9000);
+    window.setTimeout(() => {recognition.start();}, 8000);
 }
 
 
