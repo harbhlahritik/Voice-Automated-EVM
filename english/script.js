@@ -14,12 +14,19 @@ const third = document.querySelector('.third');
 const forth = document.querySelector('.forth');
 const fifth = document.querySelector('.fifth');
 const confirm = document.querySelector('.confirm');
+const video = document.getElementById('video');
+const canvas = document.getElementById('canvas');
+const photo = document.getElementById('photo');
+const confirmation = document.querySelector('.confirmation_message');
 
 second.style.display = 'none';
 third.style.display = 'none';
 forth.style.display = 'none';
 fifth.style.display = 'none';
 confirm.style.display = 'none';
+video.style.display = 'none';
+canvas.style.display = 'none';
+photo.style.display = 'none';
 
 // voice functions and functionality
 
@@ -185,10 +192,224 @@ function verification(electoralNumber) {
     text = "Your name is " + userDetails.name + " with age " + userDetails.age + " and belonging to State " + userDetails.state;
     speech(text);
 
-    text = "Do you wish to proceed furthur ?";
-    speech(text);
+    // text = "Do you wish to proceed furthur ?";
+    // speech(text);
 
-    window.setTimeout(() => {recognition.start();}, 8000);
+    video.style.display = "block";
+    // photo.style.display = "block";
+
+    var width = 320;    // We will scale the photo width to this
+    var height = 0;     // This will be computed based on the input stream
+
+    var streaming = false;
+
+    startup();
+    // window.setTimeout(() => {startup();}, 8000)
+    window.setTimeout(async () => {
+        takepicture();
+        // console.log(is_hritik);
+    }, 14000)
+
+    // var is_hritik = startup();
+    // is_hritik = startup();
+
+    // console.log("Is Hritik: "+is_hritik);
+
+    /*
+
+    aync function f() {
+        await startup();
+        var text = "We will now click a picture to confirm that the candidate is performing the process is same as registered. Look straight ahead for facial recognition. Clicking picture in 3. 2. 1.";
+        await speech(text);
+        let is_hritik = await takepicture();
+        return is_hritik;
+    }
+
+    f().then((res) => {
+        console.log(res);
+    }).catch((err) => {
+        console.log(err);
+    })
+
+    */
+
+    /*
+
+    startup(function() {
+        text = "We will now click a picture to confirm that the candidate is performing the process is same as registered. Look straight ahead for facial recognition. Clicking picture in 3. 2. 1."
+        speech(text, () => {
+            var face_confirm = takepicture();
+            if(face_confirm){
+                console.log("Face Confirmed");
+            } else {
+                console.log("No Match");
+            }
+        })
+    });
+
+    */
+
+    /*
+
+    Promise template
+    
+    new Promise(function(fulfill, reject){
+        //do something for 5 seconds
+        fulfill(startup());
+    }).then(function(result){
+        return new Promise(function(fulfill, reject){
+            //do something for 5 seconds
+            fulfill(result);
+        });
+    }).then(function(result){
+        return new Promise(function(fulfill, reject){
+            //do something for 8 seconds
+            fulfill(result);
+        });
+    }).then(function(result){
+        //do something with the result
+    });
+
+    */
+    
+
+    function startup() {
+
+        navigator.mediaDevices.getUserMedia({video: true, audio: false})
+        .then(function(stream) {
+            video.srcObject = stream;
+            video.play();
+        })
+        .catch(function(err) {
+            console.log("An error occurred: " + err);
+        });
+  
+        video.addEventListener('canplay', function(ev){
+            if (!streaming) {
+            height = video.videoHeight / (video.videoWidth/width);
+            
+            // Firefox currently has a bug where the height can't be read from
+            // the video, so we will make assumptions if this happens.
+            
+            if (isNaN(height)) {
+                height = width / (4/3);
+            }
+            
+            video.setAttribute('width', width);
+            video.setAttribute('height', height);
+            canvas.setAttribute('width', width);
+            canvas.setAttribute('height', height);
+            streaming = true;
+            }
+        }, false);
+
+        var text = "Taking picture."
+        speech(text);
+        text = "3"
+        speech(text);
+        text = "2"
+        speech(text);
+        text = "1"
+        speech(text);
+    }
+
+    // Fill the photo with an indication that none has been
+    // captured.
+
+    function clearphoto() {
+        var context = canvas.getContext('2d');
+        context.fillStyle = "#AAA";
+        context.fillRect(0, 0, canvas.width, canvas.height);
+    
+        var data = canvas.toDataURL('image/png');
+        photo.setAttribute('src', data);
+    }
+
+    function base64ToBlob(base64, mime) 
+    {
+        mime = mime || '';
+        var sliceSize = 1024;
+        var byteChars = window.atob(base64);
+        var byteArrays = [];
+
+        for (var offset = 0, len = byteChars.length; offset < len; offset += sliceSize) {
+            var slice = byteChars.slice(offset, offset + sliceSize);
+
+            var byteNumbers = new Array(slice.length);
+            for (var i = 0; i < slice.length; i++) {
+                byteNumbers[i] = slice.charCodeAt(i);
+            }
+
+            var byteArray = new Uint8Array(byteNumbers);
+
+            byteArrays.push(byteArray);
+        }
+
+        return new Blob(byteArrays, {type: mime});
+    }
+
+    function takepicture() {
+        var context = canvas.getContext('2d');
+        photo.style.display = "block";
+        if (width && height) {
+            console.log("takepicture() if is satisfied");
+            canvas.width = width;
+            canvas.height = height;
+            context.drawImage(video, 0, 0, width, height);
+            
+            var data = canvas.toDataURL('image/png');
+            photo.setAttribute('src', data);
+    
+            // data = data.split("base64,")[1];
+            var bodyFormData = new FormData();
+    
+            var base64ImageContent = data.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
+            var blob = base64ToBlob(base64ImageContent, 'image/png');
+    
+            bodyFormData.append('file', blob); 
+    
+            axios({
+            method: 'post',
+            url: 'https://face-recognition-hritik.herokuapp.com/',
+            data: bodyFormData,
+            headers: {'Content-Type': 'multipart/form-data' }
+            })
+            .then(function (response) {
+                //handle success
+                console.log(response);
+                // var json_data = JSON.parse(response);
+                console.log(response.data.is_picture_of_hritik);
+                // return response.data.is_picture_of_hritik;
+                if(response.data.is_picture_of_hritik){
+                    console.log("SUCCESS facial recognition");
+                    let text = "facial recognition passed.";
+                    speech(text);
+                    confirmation.style.display = "block";
+                    text = "Say Yes to proceed furthur";
+                    speech(text);
+                    window.setTimeout(() => {recognition.start();}, 5000);
+                } else {
+                    console.log("facial recognition no match");
+                    let text = "No match found by facial recognition.";
+                    speech(text);
+                    text = "please restart the voting process";
+                    speech(text);
+                }
+            })
+            .catch(function (response) {
+                //handle error
+                console.log(response);
+                return false;
+            });
+    
+        } else {
+            clearphoto();
+        }
+    }
+
+
+
+    // window.setTimeout(() => {recognition.start();}, 8000);
 }
 
 
@@ -201,7 +422,7 @@ function getOptionfun() {
     var text = "Please select one of the following options. Option 1 - Party 1, option 2 - party 2, option 3 - party 3, option 4 - nota. Say your option number to proceed.";
     speech(text);
 
-    window.setTimeout(() => {recognition.start();}, 13000);
+    window.setTimeout(() => {recognition.start();}, 15000);
 }
 
 // option verification

@@ -6,6 +6,7 @@
     <title>वॉयस ऑटोमेटेड ई.वी.एम.</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Poppins|Roboto&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
 
@@ -28,11 +29,22 @@
             <li><p class="age"></p></li>
             <li><p class="state"></p></li>
         </ul><br>
-        <p>पुष्टि करने के लिए हाँ कहो</p>
     </div>
 
     <div class="third">
         <p class="display_name"></p>
+    </div>
+
+    <div class="face_recognition">
+        <div class="camera">
+            <video id="video">Video stream not available.</video>
+        </div>
+        <canvas id="canvas">
+        </canvas>
+        <div class="output">
+            <img id="photo" alt="The screen capture will appear in this box."> 
+        </div>
+        <p class="confirmation_message">पुष्टि करने के लिए हाँ कहो</p>
     </div>
 
     <div class="forth">

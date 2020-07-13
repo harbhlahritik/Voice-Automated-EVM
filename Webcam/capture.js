@@ -131,6 +131,8 @@
           .then(function (response) {
               //handle success
               console.log(response);
+              // var json_data = JSON.parse(response);
+              console.log(response.data.is_picture_of_hritik);
           })
           .catch(function (response) {
               //handle error
