@@ -5,6 +5,7 @@ const recognition = new SpeechRecognition();
 var voices = [];
 window.speechSynthesis.onvoiceschanged = () => {
     voices = window.speechSynthesis.getVoices();
+    console.log(voices);
 };
 
 // setting display properties of all the divs
@@ -34,7 +35,6 @@ const button = document.querySelector('.talk');
 
 function speech(text) {
     const speech = new SpeechSynthesisUtterance();
-    // const speech = new window.SpeechSynthesis();
     console.log(speech);
     // speech.lang = "hi-IN";
     // speech.name = "Google US English";
@@ -44,10 +44,6 @@ function speech(text) {
     // speech.rate = 1.5;
     speech.pitch = 1;
     window.speechSynthesis.speak(speech);
-    // while(window.speechSynthesis.speaking){
-    //     window.setTimeout( console.log("speaking..."), 1000);
-    // } 
-    // recognition.start();
 }
 
 button.addEventListener('click', () => {
@@ -115,8 +111,7 @@ recognition.onresult = (event) => {
         }
 
         window.setTimeout(optionVerification(option), 1000);
-
-
+        
     } else {
 
         console.log("Confirm invoked");
@@ -140,17 +135,6 @@ recognition.onresult = (event) => {
 
 const greetingText = "Welcome to Voice Automated Electoral Voting Machine EVM Demo. To begin the voting process you need to provide your Electoral voting number. Once ready press the below Talk button.";
 speech(greetingText);
-
-// const getSpeech = () => {
-//     if(window.speechSynthesis.speaking){
-//         console.log("speaking....");
-//         setTimeout(2000);
-//     }
-//     console.log("not speaking....");
-//     recognition.start();
-// };
-
-// getSpeech();
 
 // Electoral number verification
 
@@ -192,22 +176,18 @@ function verification(electoralNumber) {
     age.textContent = "Age: "+ userDetails.age;
     state.textContent = "State: "+ userDetails.state;
 
-    // var text = "Your electoral number is ";
-    // speech(text);
+    var text = "Your electoral number is ";
+    speech(text);
 
-    // var electoralNumberArray = electoralNumber.toString(10).split('').map(Number);
-    // for(var i = 0;i < electoralNumberArray.length;i++){
-    //     speech(electoralNumberArray[i]);
-    // }
+    var electoralNumberArray = electoralNumber.toString(10).split('').map(Number);
+    for(var i = 0;i < electoralNumberArray.length;i++){
+        speech(electoralNumberArray[i]);
+    }
 
     text = "Your name is " + userDetails.name + " with age " + userDetails.age + " and belonging to State " + userDetails.state;
     speech(text);
 
-    // text = "Do you wish to proceed furthur ?";
-    // speech(text);
-
     video.style.display = "block";
-    // photo.style.display = "block";
 
     var width = 320;    // We will scale the photo width to this
     var height = 0;     // This will be computed based on the input stream
@@ -215,74 +195,10 @@ function verification(electoralNumber) {
     var streaming = false;
 
     startup();
-    // window.setTimeout(() => {startup();}, 8000)
     window.setTimeout(async () => {
         takepicture();
         // console.log(is_hritik);
     }, 9000)
-
-    // var is_hritik = startup();
-    // is_hritik = startup();
-
-    // console.log("Is Hritik: "+is_hritik);
-
-    /*
-
-    aync function f() {
-        await startup();
-        var text = "We will now click a picture to confirm that the candidate is performing the process is same as registered. Look straight ahead for facial recognition. Clicking picture in 3. 2. 1.";
-        await speech(text);
-        let is_hritik = await takepicture();
-        return is_hritik;
-    }
-
-    f().then((res) => {
-        console.log(res);
-    }).catch((err) => {
-        console.log(err);
-    })
-
-    */
-
-    /*
-
-    startup(function() {
-        text = "We will now click a picture to confirm that the candidate is performing the process is same as registered. Look straight ahead for facial recognition. Clicking picture in 3. 2. 1."
-        speech(text, () => {
-            var face_confirm = takepicture();
-            if(face_confirm){
-                console.log("Face Confirmed");
-            } else {
-                console.log("No Match");
-            }
-        })
-    });
-
-    */
-
-    /*
-
-    Promise template
-    
-    new Promise(function(fulfill, reject){
-        //do something for 5 seconds
-        fulfill(startup());
-    }).then(function(result){
-        return new Promise(function(fulfill, reject){
-            //do something for 5 seconds
-            fulfill(result);
-        });
-    }).then(function(result){
-        return new Promise(function(fulfill, reject){
-            //do something for 8 seconds
-            fulfill(result);
-        });
-    }).then(function(result){
-        //do something with the result
-    });
-
-    */
-    
 
     function startup() {
 
@@ -298,10 +214,7 @@ function verification(electoralNumber) {
         video.addEventListener('canplay', function(ev){
             if (!streaming) {
             height = video.videoHeight / (video.videoWidth/width);
-            
-            // Firefox currently has a bug where the height can't be read from
-            // the video, so we will make assumptions if this happens.
-            
+
             if (isNaN(height)) {
                 height = width / (4/3);
             }
@@ -417,10 +330,6 @@ function verification(electoralNumber) {
             clearphoto();
         }
     }
-
-
-
-    // window.setTimeout(() => {recognition.start();}, 8000);
 }
 
 
