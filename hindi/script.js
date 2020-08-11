@@ -80,6 +80,8 @@ recognition.onresult = (event) => {
 
             window.setTimeout(getOptionfun, 1000);
 
+        } else {
+            speech("पुष्टि नहीं की जा सकी, कृपया पुनः आरंभ करें");
         }
 
     } else if(getOption) {
@@ -87,6 +89,7 @@ recognition.onresult = (event) => {
         console.log("getoption invoked");
 
         getOption = false;
+        // getConfirmation = true;
         var option = 0;
         
         if(transcript.includes('1') || transcript.includes('एक')){
@@ -105,6 +108,17 @@ recognition.onresult = (event) => {
     } else {
 
         console.log("Confirm invoked");
+
+        if(transcript.includes('हां')){
+            
+            getConfirmation = false;
+            getOption = true;
+
+            window.setTimeout(getOptionfun, 1000);
+
+        } else {
+            speech("पुष्टि नहीं की जा सकी, कृपया पुनः आरंभ करें");
+        }
 
         window.setTimeout(confirm_vote, 1000);
 
@@ -177,7 +191,7 @@ function verification(electoralNumber) {
     startup();
     window.setTimeout(() => {
         takepicture();
-    }, 14000)
+    }, 12000)
 
     function startup() {
 

@@ -93,6 +93,8 @@ recognition.onresult = (event) => {
 
             window.setTimeout(getOptionfun, 1000);
 
+        } else {
+            speech("Could not get confirmation, please restart the voting process");
         }
 
     } else if(getOption) {
@@ -119,7 +121,16 @@ recognition.onresult = (event) => {
 
         console.log("Confirm invoked");
 
-        window.setTimeout(confirm_vote, 1000);
+        if(transcript.includes('yes')){
+            
+            getConfirmation = false;
+            getOption = true;
+
+            window.setTimeout(confirm_vote, 1000);
+
+        } else {
+            speech("Could not get confirmation, please restart the voting process");
+        }
 
     }
 };
@@ -208,7 +219,7 @@ function verification(electoralNumber) {
     window.setTimeout(async () => {
         takepicture();
         // console.log(is_hritik);
-    }, 14000)
+    }, 9000)
 
     // var is_hritik = startup();
     // is_hritik = startup();
@@ -422,7 +433,7 @@ function getOptionfun() {
     var text = "Please select one of the following options. Option 1 - Party 1, option 2 - party 2, option 3 - party 3, option 4 - nota. Say your option number to proceed.";
     speech(text);
 
-    window.setTimeout(() => {recognition.start();}, 15000);
+    window.setTimeout(() => {recognition.start();}, 12000);
 }
 
 // option verification
